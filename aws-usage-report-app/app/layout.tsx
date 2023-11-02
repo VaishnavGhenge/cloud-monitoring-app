@@ -29,6 +29,11 @@ const sidebarNavItems = [
         href: "/s3",
         icon: '/Resource-Icons_10232023/Res_Storage/Res_Amazon-Simple-Storage-Service_Bucket_48.svg'
     },
+    {
+        title: "Lambda",
+        href: "/aws_lambda",
+        icon: '/Resource-Icons_10232023/Res_Compute/Res_AWS-Lambda_Lambda-Function_48.svg'
+    }
 ]
 
 export default function RootLayout({
