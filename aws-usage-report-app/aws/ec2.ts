@@ -1,3 +1,4 @@
+import { apiUrl } from "@/config";
 import { Instance } from "@aws-sdk/client-ec2";
 
 export interface IEc2Instance {
@@ -119,7 +120,7 @@ export interface IEc2Instance {
 }
 
 export const describeInstances = async (): Promise<IEc2Instance[]> => {
-    const response =  await fetch('http://localhost:8080/ec2');
+    const response =  await fetch(`${apiUrl}/ec2`);
     const data = await response.json();
 
     return data.Reservations[0].Instances ?? [];

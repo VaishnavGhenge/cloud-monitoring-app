@@ -1,9 +1,11 @@
 // src/app.ts
 import express from 'express';
 import ec2Routes from "./routes/ec2Routes";
+import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 // Apply the CORS middleware
 app.use(function(req, res, next) {
