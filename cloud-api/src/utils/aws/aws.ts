@@ -20,6 +20,6 @@ export const getAllEC2Instances = () => {
 
     return ec2
         .send(
-            new DescribeInstancesCommand({})
+           new DescribeInstancesCommand({})
         )
 }
