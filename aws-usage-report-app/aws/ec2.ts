@@ -118,6 +118,12 @@ export interface IEc2Instance {
     CurrentInstanceBootMode: string;
 }
 
+/**
+ * This function retrives 
+ * @param {number} a - The first number.
+ * @param {number} b - The second number.
+ * @returns {number} The sum of 'a' and 'b'.
+ */
 export const describeInstances = async (): Promise<IEc2Instance[]> => {
     const response =  await fetch(`${apiUrl}/ec2`);
     const data = await response.json();
