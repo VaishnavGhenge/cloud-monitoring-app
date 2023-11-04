@@ -19,21 +19,26 @@ app.use(function (req, res, next) {
 
 const logger = winston.createLogger({
     format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-    ),
-    transports: [new winston.transports.Console()],
-});
+      winston.format.colorize(),
+      winston.format.timestamp(),
+      winston.format.printf(({ timestamp, level, message, meta }) => {
+        // return `${timestamp} [${level}]: ${message} ${meta ? JSON.stringify(meta, null, 2) : ''} \n`;
+        return `${timestamp} [${level}]: ${message}`;
 
-// Log requests and responses using Express-Winston middleware
-app.use(
-    expressWinston.logger({
-        winstonInstance: logger,
-        meta: true, // Log metadata like request and response information
-        msg: "HTTP {{req.method}} {{res.statusCode}} {{req.url}} {{res.responseTime}}ms",
-        colorize: true, // Apply colors to the console output
-    })
-);
+      })
+    ),
+    transports: [
+      new winston.transports.Console()
+    ]
+  });
+  
+  // Log requests and responses using Express-Winston middleware
+  app.use(expressWinston.logger({
+    winstonInstance: logger,
+    meta: true, // Log metadata like request and response information
+    msg: 'HTTP {{req.method}} {{res.statusCode}} {{req.url}} {{res.responseTime}}ms',
+    colorize: true // Apply colors to the console output
+  }));
 
 app.get("/", async (req, res) => {
     return res.json({ message: "working fine!" });
