@@ -1,5 +1,4 @@
 import { apiUrl } from "@/config";
-import { Instance } from "@aws-sdk/client-ec2";
 
 export interface IEc2Instance {
     AmiLaunchIndex: number;
