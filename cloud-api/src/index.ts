@@ -1,13 +1,14 @@
 // src/app.ts
 import express from "express";
 import ec2Routes from "./routes/ec2Routes";
+import s3Routes from './routes/s3Routes'
 import dotenv from "dotenv";
 import winston from "winston";
 import expressWinston from "express-winston";
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 8080;
+const port = 8081;
 
 // Apply the CORS middleware
 app.use(function (req, res, next) {
@@ -45,6 +46,12 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/ec2", ec2Routes);
+<<<<<<< HEAD
+
+app.use('/s3', s3Routes);
+
+=======
+>>>>>>> main
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
