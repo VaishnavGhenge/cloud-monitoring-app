@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { describeInstances, IEc2Instance } from "@/aws/ec2";
 import {Table, TableHeader, TableHead, TableBody, TableRow, TableCell} from "@/components/ui/table";
+import Link from "next/link";
 
 const Ec2 = () => {
     const [instances, setInstances] = useState<IEc2Instance[]>([]);
@@ -11,7 +12,6 @@ const Ec2 = () => {
         // Fetch data and update instances using describeInstances function
         const fetchData = async () => {
             const data = await describeInstances();
-            console.log(data)
             setInstances(data);
         };
         fetchData();
@@ -19,7 +19,9 @@ const Ec2 = () => {
 
     const ec2InstancesList = instances.map((instance) => (
         <TableRow key={instance.InstanceId}>
-            <TableCell>{instance.InstanceId}</TableCell>
+            <TableCell>
+                <Link href={`/ec2/${instance.InstanceId}`} className="underline hover:text-blue-300">{instance.InstanceId}</Link>
+            </TableCell>
             <TableCell>{instance.KeyName}</TableCell>
             <TableCell>{instance.Placement.AvailabilityZone}</TableCell>
             <TableCell>{instance.State.Name}</TableCell>
