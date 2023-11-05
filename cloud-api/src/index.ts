@@ -4,6 +4,8 @@ import ec2Routes from "./routes/ec2Routes";
 import dotenv from "dotenv";
 import winston from "winston";
 import expressWinston from "express-winston";
+import s3Routes from './routes/s3Routes';
+import dynamodbRoutes from './routes/dynamodbRoutes';
 
 dotenv.config();
 const app = express();
@@ -45,6 +47,8 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/ec2", ec2Routes);
+app.use('/s3', s3Routes);
+app.use('/dynamodb', dynamodbRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
