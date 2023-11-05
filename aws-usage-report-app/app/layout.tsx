@@ -29,6 +29,11 @@ const sidebarNavItems = [
         href: "/s3",
         icon: '/Resource-Icons_10232023/Res_Storage/Res_Amazon-Simple-Storage-Service_Bucket_48.svg'
     },
+    {
+        title: "DynamoDB",
+        href: "/dynamodb",
+        icon: '/Resource-Icons_10232023/Res_Database/Res_Amazon-DynamoDB_Amazon-DynamoDB-Accelerator_48.png'
+    }
 ]
 
 export default function RootLayout({

@@ -126,8 +126,9 @@ export interface IEc2Instance {
 export const describeInstances = async (): Promise<IEc2Instance[]> => {
     const response =  await fetch(`${apiUrl}/ec2`);
     const data = await response.json();
-
-    return data.Reservations[0].Instances ?? [];
+    
+    const instances = data.Reservations.map((reserve) => reserve.Instances[0])
+    return instances ?? [];
 }
 
 export const describeInstance = async (instanceId: string) => {

@@ -11,6 +11,7 @@ const Ec2 = () => {
         // Fetch data and update instances using describeInstances function
         const fetchData = async () => {
             const data = await describeInstances();
+            console.log(data)
             setInstances(data);
         };
         fetchData();
