@@ -1,3 +1,4 @@
+import Ec2 from "@/app/ec2/page";
 import { apiUrl } from "@/config";
 
 export interface IEc2Instance {
@@ -119,14 +120,18 @@ export interface IEc2Instance {
 }
 
 /**
- * This function retrives 
- * @param {number} a - The first number.
- * @param {number} b - The second number.
- * @returns {number} The sum of 'a' and 'b'.
+ * This function retrives all EC2 instances from aws
+ * @returns Promise<IEc2Instance[]> An array of EC2 instances.
  */
 export const describeInstances = async (): Promise<IEc2Instance[]> => {
     const response =  await fetch(`${apiUrl}/ec2`);
     const data = await response.json();
 
     return data.Reservations[0].Instances ?? [];
+}
+
+export const describeInstance = async (instanceId: string) => {
+    const getEC2InstanceUrl = `${apiUrl}/ec2/${instanceId}`
+    const response = await fetch(getEC2InstanceUrl);
+    return response;
 }
