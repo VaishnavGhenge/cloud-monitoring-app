@@ -1,5 +1,5 @@
+import Ec2 from "@/app/ec2/page";
 import { apiUrl } from "@/config";
-import { Instance } from "@aws-sdk/client-ec2";
 
 export interface IEc2Instance {
     AmiLaunchIndex: number;
@@ -119,10 +119,20 @@ export interface IEc2Instance {
     CurrentInstanceBootMode: string;
 }
 
+/**
+ * This function retrives all EC2 instances from aws
+ * @returns Promise<IEc2Instance[]> An array of EC2 instances.
+ */
 export const describeInstances = async (): Promise<IEc2Instance[]> => {
     const response =  await fetch(`${apiUrl}/ec2`);
     const data = await response.json();
     
     const instances = data.Reservations.map((reserve) => reserve.Instances[0])
     return instances ?? [];
+}
+
+export const describeInstance = async (instanceId: string) => {
+    const getEC2InstanceUrl = `${apiUrl}/ec2/${instanceId}`
+    const response = await fetch(getEC2InstanceUrl);
+    return response;
 }

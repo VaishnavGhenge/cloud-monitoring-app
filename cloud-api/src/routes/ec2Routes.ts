@@ -4,5 +4,6 @@ import {ec2Controller} from "../controllers/ec2Controller";
 const router: Router = express.Router();
 
 router.get('/', ec2Controller.getAllInstances);
+router.get('/:instanceId', ec2Controller.getEc2Instance);
 
 export default router;

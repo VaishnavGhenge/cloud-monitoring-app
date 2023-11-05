@@ -1,0 +1,10 @@
+import express, {Router, Request, Response} from "express";
+import { s3controller } from "../controllers/s3Controller";
+
+const router: Router = express.Router();
+
+router.get('/', s3controller.getInstances);
+
+export default router;
+
+
