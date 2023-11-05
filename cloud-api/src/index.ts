@@ -1,6 +1,7 @@
 // src/app.ts
 import express from 'express';
 import ec2Routes from "./routes/ec2Routes";
+import dynamodbRoutes from './routes/dynamodbRoutes';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -16,10 +17,11 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', async (req, res) => {
-    return {message: 'working fine!'}
+    return res.json({message: 'working fine!'});
 });
 
 app.use('/ec2', ec2Routes);
+app.use('/dynamodb', dynamodbRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
