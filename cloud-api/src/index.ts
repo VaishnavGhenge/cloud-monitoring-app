@@ -46,9 +46,12 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/ec2", ec2Routes);
+<<<<<<< HEAD
 
 app.use('/s3', s3Routes);
 
+=======
+>>>>>>> main
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
