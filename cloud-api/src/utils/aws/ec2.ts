@@ -36,7 +36,6 @@ export const getEc2Instance = (instanceId: string) => {
 // export const getEC2MetricsData = (instanceId: string) => {
 //     const ec2Client = getEC2Client();
 //     const endTime = new Date(); // Current time
-//     const startTime = new Date(endTime - 10 * 60 * 1000); // Subtract 10 minutes (10 * 60 * 1000 milliseconds)
 //     const input: GetMetricDataCommandInput = {
 //         StartTime: startTime,
 //         EndTime: endTime,
