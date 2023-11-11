@@ -11,11 +11,18 @@ const getS3Client = () => {
     })
 }
 
-export const getAllS3Instances = () => {
-    const s3 = getS3Client();
+ export const  getS3Buckets = () => {
+        const S3= getS3Client();
+        return S3.send(new ListBucketsCommand({}));
+  }
 
-    return s3
-        .send(
-            new ListBucketsCommand({})
-        )
-}
+  export const getS3BucketDetails = (bucketName: string) => {
+            const s3= getS3Client();
+            return s3.send(new ListBucketsCommand({
+                 Bucket: bucketName 
+                }));
+  };
+
+  
+
+
