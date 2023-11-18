@@ -1,6 +1,7 @@
 import {DescribeInstancesCommand, EC2Client} from "@aws-sdk/client-ec2"
 import {fromEnv} from "@aws-sdk/credential-providers"
-import {GetMetricDataCommand, GetMetricDataCommandInput} from "@aws-sdk/client-cloudwatch"
+import {GetMetricStatisticsCommand, GetMetricStatisticsCommandInput} from "@aws-sdk/client-cloudwatch"
+import { getCloudWatchClient } from "./cloudWatch"
 
 import dotenv from "dotenv"
 
@@ -33,32 +34,31 @@ export const getEc2Instance = (instanceId: string) => {
     )
 }
 
-// export const getEC2MetricsData = (instanceId: string) => {
-//     const ec2Client = getEC2Client();
-//     const endTime = new Date(); // Current time
-//     const input: GetMetricDataCommandInput = {
-//         StartTime: startTime,
-//         EndTime: endTime,
-//         MetricDataQueries: [
-//             {
-//                 Id: 'cpu-utilization',
-//                 MetricStat: {
-//                   Metric: {
-//                     Namespace: 'AWS/EC2',
-//                     MetricName: 'CPUUtilization',
-//                     Dimensions: [
-//                       {
-//                         Name: 'InstanceId',
-//                         Value: instanceId,
-//                       },
-//                     ],
-//                   },
-//                   Period: 30, // 30 sec data points
-//                   Stat: 'Average',
-//                 },
-//               },
-//         ]
-//     };
+/**
+ * Function to get EC2 memory utilization data
+ * @param instanceId EC2 instance id
+ * @param startTime Time from EC2 memory utilization data is to be fetched (default: 1 hour ago)
+ * @param endTime Time till EC2 memory utilization data is to be fetched (default: current time)
+ * @returns EC2 instance memory utilization data
+ */
+export const getEc2MemoryUtilization = (instanceId: string, startTime = new Date(Date.now() - 3600000), endTime = new Date()) => {
+    const cloudWatchClient = getCloudWatchClient();
+    const params: GetMetricStatisticsCommandInput = {
+        Namespace: 'AWS/EC2',
+        MetricName: 'CPUUtilization',
+        Dimensions: [
+            {
+                Name: 'InstanceId',
+                Value: instanceId
+            }
+        ],
+        StartTime: startTime,
+        EndTime: endTime,
+        Period: 300,
+        Statistics: ['Average']
+    };
 
-    
-// }
+    return cloudWatchClient.send(
+        new GetMetricStatisticsCommand(params)
+    )
+}
