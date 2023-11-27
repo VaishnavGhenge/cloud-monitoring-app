@@ -54,7 +54,7 @@ export const getEc2MemoryUtilization = (instanceId: string, startTime = new Date
         ],
         StartTime: startTime,
         EndTime: endTime,
-        Period: 300,
+        Period: 600,
         Statistics: ['Average']
     };
 
