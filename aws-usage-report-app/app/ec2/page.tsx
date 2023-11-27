@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import { describeInstances, IEc2Instance } from "@/aws/ec2";
 import {Table, TableHeader, TableHead, TableBody, TableRow, TableCell} from "@/components/ui/table";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Ec2 = () => {
+    const router = useRouter();
+
     const [instances, setInstances] = useState<IEc2Instance[]>([]);
 
     useEffect(() => {
@@ -17,14 +19,25 @@ const Ec2 = () => {
         fetchData();
     }, []);
 
+    const getInstanceStatusClass = (stateName: string) => {
+        switch(stateName) {
+            case 'running': return 'text-green-700';
+            case 'terminated' || 'stopped': return 'text-red-600';
+            case 'pending' || 'stopping': return 'text-orage-400';
+            default: return '';
+        }
+    }
+
+    const onInstanceRowClick = (instanceId: string) => {
+        router.push(`/ec2/${instanceId}`);
+    }
+
     const ec2InstancesList = instances.map((instance) => (
-        <TableRow key={instance.InstanceId}>
-            <TableCell>
-                <Link href={`/ec2/${instance.InstanceId}`} className="underline hover:text-blue-300">{instance.InstanceId}</Link>
-            </TableCell>
-            <TableCell>{instance.KeyName}</TableCell>
-            <TableCell>{instance.Placement.AvailabilityZone}</TableCell>
-            <TableCell>{instance.State.Name}</TableCell>
+        <TableRow key={instance.InstanceId} onClick={() => onInstanceRowClick(instance.InstanceId)} className='hover:cursor-pointer'>
+                <TableCell>{instance.InstanceId}</TableCell>
+                <TableCell>{instance.KeyName}</TableCell>
+                <TableCell>{instance.Placement.AvailabilityZone}</TableCell>
+                <TableCell className={getInstanceStatusClass(instance.State.Name)}>{instance.State.Name}</TableCell>
         </TableRow>
     ));
 
