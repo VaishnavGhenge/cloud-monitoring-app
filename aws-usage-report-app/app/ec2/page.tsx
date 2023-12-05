@@ -23,7 +23,7 @@ const Ec2 = () => {
         switch(stateName) {
             case 'running': return 'text-green-700';
             case 'terminated' || 'stopped': return 'text-red-600';
-            case 'pending' || 'stopping': return 'text-orage-400';
+            case 'pending' || 'stopping': return 'text-orange-400';
             default: return '';
         }
     }

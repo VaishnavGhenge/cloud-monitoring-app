@@ -1,10 +1,12 @@
 'use client'
-
 import { useState, useEffect } from "react";
-import { listS3Buckets, IS3Bucket } from "@/aws/s3"; // Import your S3 functions and interface
+import { listS3Buckets, IS3Bucket } from "@/aws/s3";
 import { Table, TableHeader, TableHead, TableBody, TableRow, TableCell } from "@/components/ui/table";
+import { useRouter } from "next/navigation";
 
 const S3Buckets = () => {
+  const router = useRouter();
+
   const [buckets, setBuckets] = useState<IS3Bucket[]>([]);
 
   useEffect(() => {
@@ -16,8 +18,12 @@ const S3Buckets = () => {
     fetchData();
   }, []);
 
+  const onBucketRowClick = (bucketName: string) => {
+    router.push(`/s3/${bucketName}`);
+  };
+
   const s3BucketsList = buckets.map((bucket) => (
-    <TableRow key={bucket.Name}>
+    <TableRow key={bucket.Name} onClick={() => onBucketRowClick(bucket.Name)} className='hover:cursor-pointer'>
       <TableCell>{bucket.Name}</TableCell>
       <TableCell>{bucket.CreationDate}</TableCell>
       <TableCell>{bucket.Owner?.DisplayName}</TableCell>

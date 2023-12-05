@@ -1,6 +1,8 @@
 import { apiUrl } from "@/config";
+import { ReactNode } from "react";
 
 export interface IEc2Instance {
+    KeyName: ReactNode;
     InstanceId: string;
     InstanceType: string;
     LaunchTime: string;

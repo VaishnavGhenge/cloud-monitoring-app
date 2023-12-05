@@ -6,6 +6,7 @@ export const ec2Controller = {
     getAllInstances: async (req: Request, res: Response) => {
         try {
             const response = await getAllEC2Instances();
+            console.log('data',response);
             return res.json(response);
         } catch(err) {
             console.error(err);
@@ -32,6 +33,7 @@ export const ec2Controller = {
             const endTime = endTimeISOString ? new Date(endTimeISOString as string) : new Date(); // current time
 
             const response = await getEc2MemoryUtilization(instanceId, startTime, endTime);
+            console.log('data',response);
             return res.json(response);
         }
         catch(err) {
