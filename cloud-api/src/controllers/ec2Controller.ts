@@ -5,6 +5,7 @@ import {getAllEC2Instances, getEc2Instance, getEc2MemoryUtilization} from "../ut
 export const ec2Controller = {
     getAllInstances: async (req: Request, res: Response) => {
         try {
+            console.log('data');
             const response = await getAllEC2Instances();
             console.log('data',response);
             return res.json(response);

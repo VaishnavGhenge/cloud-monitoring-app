@@ -29,7 +29,7 @@ export default function Page({ params }: { params: { bucketName: string } }) {
 
             if (ctx) {
                 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale);
-                // Create your Chart.js chart
+                // Create  Chart.js chart
                 myChart = new Chart(ctx, {
                     type: "line",
                     data: {

@@ -13,7 +13,7 @@ export interface IS3Bucket {
 interface S3ApiResponse {
     Buckets?: {
       Name: string;
-      CreationDate?: Date;
+      CreationDate?: string;
       Owner?: {
         DisplayName?: string;
         ID?: string;
@@ -28,7 +28,7 @@ interface S3ApiResponse {
   
       const bucketDetails: IS3Bucket[] = data.Buckets?.map(bucket => ({
         Name: bucket.Name,
-        CreationDate: bucket.CreationDate?.toISOString() || '',
+        CreationDate: bucket.CreationDate || '',
         Owner: {
           DisplayName: bucket.Owner?.DisplayName || '',
           ID: bucket.Owner?.ID || '',
