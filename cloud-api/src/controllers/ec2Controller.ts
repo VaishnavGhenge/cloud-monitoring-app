@@ -10,13 +10,7 @@ import {
 export const ec2Controller = {
     getAllInstances: async (req: Request, res: Response) => {
         try {
-<<<<<<< HEAD
-            console.log('data');
-            const response = await getAllEC2Instances();
-            console.log('data',response);
-=======
             const response = process.env.DUMMY_DATA_MODE == 'true' ? ec2DummyData.ec2InstancesResponse : await getAllEC2Instances();
->>>>>>> vaishnav
             return res.json(response);
         } catch (err) {
             console.error(err);
@@ -46,16 +40,12 @@ export const ec2Controller = {
                 ? new Date(endTimeISOString as string)
                 : new Date(); // current time
 
-<<<<<<< HEAD
-            const response = await getEc2MemoryUtilization(instanceId, startTime, endTime);
-            console.log('data',response);
-=======
             const response = process.env.DUMMY_DATA_MODE == 'true' ? ec2DummyData.CPUUtilization : await getEc2MemoryUtilization(
                 instanceId,
                 startTime,
                 endTime
             );
->>>>>>> vaishnav
+
             return res.json(response);
         } catch (err) {
             console.error(err);

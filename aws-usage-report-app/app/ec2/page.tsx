@@ -22,18 +22,12 @@ const Ec2 = () => {
     const getInstanceStatusClass = (stateName: string) => {
         switch(stateName) {
             case 'running': return 'text-green-700';
-<<<<<<< HEAD
-            case 'terminated' || 'stopped': return 'text-red-600';
-            case 'pending' || 'stopping': return 'text-orange-400';
-            default: return '';
-=======
             case 'terminated': return 'text-red-600';
             case 'stopped': return 'text-red-600';
             case 'stopping': return 'text-red-600';
             case 'shutting-down': return 'text-red-600';
             case 'pending': return 'text-orange-400';
             default: return 'text-white';
->>>>>>> vaishnav
         }
     }
 
